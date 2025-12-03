@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>개인 홈페이지</title>
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & Babel CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body class="bg-white text-gray-800">
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const Hero = () => (
+        <section className="w-full text-center py-24 bg-gradient-to-b from-blue-100 to-blue-50">
+          <h1 className="text-5xl font-bold text-blue-700 mb-4">가우스</h1>
+          <h2 className="text-2xl text-blue-500 mb-2">청산중학교</h2>
+          <p className="text-lg text-gray-600">수학을 더 쉽게, 더 깊게 이해하는 공간</p>
+        </section>
+      );
+
+      const About = () => (
+        <section className="max-w-4xl mx-auto py-20 px-6">
+          <h2 className="text-3xl font-bold text-blue-700 mb-6">About</h2>
+          <p className="mb-4 leading-relaxed">
+            "수학 문제를 어떻게 하면 잘 풀 수 있을까?" 이 질문은 많은 학생들이 가지고 있는 고민이며,
+            저 또한 오랫동안 탐구해온 주제입니다. 단순히 공식을 외우는 것이 아니라, 문제 속 숨은 구조를
+            이해하고 스스로 풀이 전략을 세우는 경험이 중요합니다.
+          </p>
+          <p className="mb-4 leading-relaxed">
+            저는 학생들이 수학을 어렵게 느끼는 이유를 정확히 짚고, 그 장벽을 단계적으로
+            넘어설 수 있도록 돕고자 합니다. 이 홈페이지는 여러분이 만든 수행평가를 공유하고,
+            서로의 성공 경험을 나누며 성장하는 친근한 공간이 되기를 바랍니다.
+          </p>
+        </section>
+      );
+
+      const Experience = () => (
+        <section className="max-w-5xl mx-auto py-20 px-6">
+          <h2 className="text-3xl font-bold text-blue-700 mb-10">Experience</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {["교육 경력", "수상 이력", "연구/프로젝트"].map((title) => (
+              <div
+                key={title}
+                className="bg-white shadow-md rounded-2xl p-6 border border-blue-100 hover:shadow-lg transition"
+              >
+                <h3 className="text-xl font-semibold text-blue-600 mb-2">{title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  관련 내용을 간단히 입력해 주세요. 업적, 활동, 프로젝트 등을 간략히 표시할 수 있습니다.
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+
+      const Lectures = () => (
+        <section className="max-w-4xl mx-auto py-20 px-6">
+          <h2 className="text-3xl font-bold text-blue-700 mb-6">Lectures</h2>
+          <p className="leading-relaxed text-gray-700">
+            주로 다루는 수학 내용은 함수, 기하, 확률과 통계, 그리고 문제 해결 전략 등입니다. 학생들이
+            어려워하는 개념을 직관적으로 설명하고, 실제 시험에서 활용할 수 있는 풀이 감각을
+            기르는 데 초점을 맞추고 있습니다.
+          </p>
+        </section>
+      );
+
+      const Contact = () => (
+        <section className="max-w-4xl mx-auto py-20 px-6 text-center">
+          <h2 className="text-3xl font-bold text-blue-700 mb-6">Contact</h2>
+          <p className="mb-6 text-gray-700">
+            강의·연수·컨설팅 문의는 이메일로 연락 주세요.
+          </p>
+          <a
+            href="mailto:l86091735@gmail.com"
+            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-xl shadow hover:bg-blue-700 transition"
+          >
+            l86091735@gmail.com
+          </a>
+        </section>
+      );
+
+      const Footer = () => (
+        <footer className="py-8 text-center text-gray-500 text-sm">
+          © 2025 개인 홈페이지 — 함께 성장하는 수학 공간
+        </footer>
+      );
+
+      const App = () => (
+        <div>
+          <Hero />
+          <About />
+          <Experience />
+          <Lectures />
+          <Contact />
+          <Footer />
+        </div>
+      );
+
+      ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+  </body>
+</html>
