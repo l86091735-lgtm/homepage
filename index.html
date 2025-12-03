@@ -3,90 +3,260 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>개인 홈페이지</title>
+    <title>가우스 - 청산중학교 수학 선생님</title>
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- React & Babel CDN -->
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+      /* 모눈종이 배경 패턴 */
+      .bg-grid-pattern {
+        background-image: linear-gradient(to right, #e0f2fe 1px, transparent 1px),
+          linear-gradient(to bottom, #e0f2fe 1px, transparent 1px);
+        background-size: 40px 40px;
+      }
+      /* 부드러운 애니메이션 */
+      .fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
   </head>
-  <body class="bg-white text-gray-800">
+  <body class="bg-slate-50 text-gray-800 font-sans">
     <div id="root"></div>
 
     <script type="text/babel">
+      // 간단한 아이콘 컴포넌트 (SVG)
+      const Icon = ({ type, className }) => {
+        const icons = {
+          career: (
+            <path strokeLinecap="round" strokeLinejoin="round" d="M20 7h-3a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM9 7h6" />
+          ),
+          award: (
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 15l-2 5l2-1l2 1l-2-5M8.5 4.5a2.5 2.5 0 1 1 5 0a2.5 2.5 0 0 1-5 0zM12 2l-7 3v6c0 5.5 7 11 7 11s7-5.5 7-11V5l-7-3z" />
+          ),
+          project: (
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+          ),
+          math: (
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M6.6 20H17.4a2 2 0 002-2V6a2 2 0 00-2-2H6.6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          ),
+          mail: (
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          )
+        };
+        return (
+          <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+            {icons[type]}
+          </svg>
+        );
+      };
+
       const Hero = () => (
-        <section className="w-full text-center py-24 bg-gradient-to-b from-blue-100 to-blue-50">
-          <h1 className="text-5xl font-bold text-blue-700 mb-4">가우스</h1>
-          <h2 className="text-2xl text-blue-500 mb-2">청산중학교</h2>
-          <p className="text-lg text-gray-600">수학을 더 쉽게, 더 깊게 이해하는 공간</p>
-        </section>
-      );
-
-      const About = () => (
-        <section className="max-w-4xl mx-auto py-20 px-6">
-          <h2 className="text-3xl font-bold text-blue-700 mb-6">About</h2>
-          <p className="mb-4 leading-relaxed">
-            "수학 문제를 어떻게 하면 잘 풀 수 있을까?" 이 질문은 많은 학생들이 가지고 있는 고민이며,
-            저 또한 오랫동안 탐구해온 주제입니다. 단순히 공식을 외우는 것이 아니라, 문제 속 숨은 구조를
-            이해하고 스스로 풀이 전략을 세우는 경험이 중요합니다.
-          </p>
-          <p className="mb-4 leading-relaxed">
-            저는 학생들이 수학을 어렵게 느끼는 이유를 정확히 짚고, 그 장벽을 단계적으로
-            넘어설 수 있도록 돕고자 합니다. 이 홈페이지는 여러분이 만든 수행평가를 공유하고,
-            서로의 성공 경험을 나누며 성장하는 친근한 공간이 되기를 바랍니다.
-          </p>
-        </section>
-      );
-
-      const Experience = () => (
-        <section className="max-w-5xl mx-auto py-20 px-6">
-          <h2 className="text-3xl font-bold text-blue-700 mb-10">Experience</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {["교육 경력", "수상 이력", "연구/프로젝트"].map((title) => (
-              <div
-                key={title}
-                className="bg-white shadow-md rounded-2xl p-6 border border-blue-100 hover:shadow-lg transition"
-              >
-                <h3 className="text-xl font-semibold text-blue-600 mb-2">{title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  관련 내용을 간단히 입력해 주세요. 업적, 활동, 프로젝트 등을 간략히 표시할 수 있습니다.
-                </p>
-              </div>
-            ))}
+        <section className="relative w-full text-center py-32 bg-white bg-grid-pattern overflow-hidden border-b border-blue-100">
+          {/* 장식용 배경 요소 */}
+          <div className="absolute top-10 left-10 w-24 h-24 bg-blue-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
+          <div className="absolute bottom-10 right-10 w-32 h-32 bg-indigo-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse delay-700"></div>
+          
+          <div className="relative z-10 max-w-4xl mx-auto px-6 fade-in-up">
+            <div className="inline-block p-3 bg-blue-50 rounded-full mb-6">
+              <Icon type="math" className="w-8 h-8 text-blue-600" />
+            </div>
+            <h1 className="text-6xl font-extrabold text-slate-900 mb-4 tracking-tight">
+              가우스 <span className="text-blue-600">선생님</span>
+            </h1>
+            <h2 className="text-3xl text-slate-600 font-medium mb-6">청산중학교 수학과</h2>
+            <p className="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
+              "수학은 세상을 보는 또 다른 언어입니다."<br/>
+              복잡한 수식 너머에 있는 논리의 즐거움을 함께 찾아갑니다.
+            </p>
           </div>
         </section>
       );
 
+      const About = () => (
+        <section className="max-w-4xl mx-auto py-24 px-6">
+          <div className="flex flex-col md:flex-row gap-12 items-center">
+            <div className="flex-1 space-y-6">
+              <h2 className="text-3xl font-bold text-slate-800 border-l-4 border-blue-600 pl-4">About Me</h2>
+              <p className="text-lg text-slate-600 leading-8">
+                안녕하세요. <strong>청산중학교</strong>에서 수학을 가르치고 있는 가우스입니다.
+                많은 학생들이 수학을 '답을 찾는 과정'으로만 생각합니다. 
+                하지만 저는 수학이 '질문을 던지고 길을 찾는 과정'이라고 믿습니다.
+              </p>
+              <p className="text-lg text-slate-600 leading-8">
+                이 홈페이지는 교실에서의 배움을 넘어, 여러분이 수행평가 결과물을 공유하고 
+                서로의 풀이를 토론하며 성장하는 <strong>디지털 아고라</strong>입니다.
+                어려운 문제 앞에 섰을 때, 혼자가 아니라 함께 고민할 수 있는 공간이 되길 바랍니다.
+              </p>
+            </div>
+            {/* 사진 대신 텍스트를 강조하는 박스 디자인 */}
+            <div className="w-full md:w-1/3 bg-gradient-to-br from-blue-600 to-indigo-700 text-white p-8 rounded-2xl shadow-xl transform rotate-3 hover:rotate-0 transition duration-300">
+              <h3 className="text-xl font-bold mb-4">교육 철학</h3>
+              <ul className="space-y-3 font-light">
+                <li className="flex items-start">
+                  <span className="mr-2">✓</span> 스스로 생각하는 힘
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-2">✓</span> 실패를 통한 배움
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-2">✓</span> 협력을 통한 성장
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      );
+
+      const Experience = () => {
+        // 이력 데이터 (수학 선생님에 맞게 구성됨)
+        const experiences = [
+          {
+            title: "교육 경력(희망)",
+            type: "career",
+            items: [
+              "현) 청산중학교 수학과 교사",
+              "전) 00교육청 수학 영재교육원 강사",
+              "한국교원대학교 수학교육과 졸업",
+              "중등 정교사 1급 자격 소지"
+            ]
+          },
+          {
+            title: "주요 수상 이력(희망)",
+            type: "award",
+            items: [
+              "2024 교육감 표창 (수업 혁신 분야)",
+              "2022 전국 수학교사 수업연구대회 은상",
+              "2021 우수 수업 지도안 공모전 최우수상",
+              "청소년 과학탐구대회 지도교사상 수상"
+            ]
+          },
+          {
+            title: "연구 및 프로젝트(희망)",
+            type: "project",
+            items: [
+              "과정 중심 평가 모델 개발 연구회 활동",
+              "AI 활용 수학 학습용 챗봇 개발 프로젝트 참여",
+              "교내 수학 동아리 '피타고라스' 지도",
+              "창의 수학 교구재 개발 및 특허 출원"
+            ]
+          }
+        ];
+
+        return (
+          <section className="bg-slate-50 py-24 px-6 border-y border-slate-200">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-3xl font-bold text-slate-800 mb-4">Experience</h2>
+                <p className="text-slate-500">더 나은 교육을 위해 걸어온 길과 성취들입니다.</p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {experiences.map((exp, index) => (
+                  <div key={index} className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group">
+                    <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                      <Icon type={exp.type} className="w-7 h-7" />
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-800 mb-6 pb-4 border-b border-slate-100">{exp.title}</h3>
+                    <ul className="space-y-3">
+                      {exp.items.map((item, idx) => (
+                        <li key={idx} className="text-slate-600 text-sm flex items-start leading-relaxed">
+                          <span className="w-1.5 h-1.5 bg-blue-400 rounded-full mt-1.5 mr-2 flex-shrink-0"></span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      };
+
       const Lectures = () => (
-        <section className="max-w-4xl mx-auto py-20 px-6">
-          <h2 className="text-3xl font-bold text-blue-700 mb-6">Lectures</h2>
-          <p className="leading-relaxed text-gray-700">
-            주로 다루는 수학 내용은 함수, 기하, 확률과 통계, 그리고 문제 해결 전략 등입니다. 학생들이
-            어려워하는 개념을 직관적으로 설명하고, 실제 시험에서 활용할 수 있는 풀이 감각을
-            기르는 데 초점을 맞추고 있습니다.
-          </p>
+        <section className="max-w-5xl mx-auto py-24 px-6">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-10">
+            <div>
+              <h2 className="text-3xl font-bold text-slate-800 mb-2">Class Focus</h2>
+              <p className="text-slate-500">수업 시간에 주로 다루는 핵심 주제들입니다.</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white border border-slate-200 p-8 rounded-2xl hover:border-blue-400 transition cursor-default">
+              <h3 className="text-xl font-bold text-blue-700 mb-3">함수와 그래프의 해석</h3>
+              <p className="text-slate-600 leading-relaxed mb-4">
+                단순한 대입이 아닌, 그래프의 개형과 변화를 읽어내는 직관을 기릅니다. 
+                일상 생활의 현상을 함수로 모델링하는 연습을 합니다.
+              </p>
+              <span className="text-xs font-semibold bg-blue-100 text-blue-700 px-3 py-1 rounded-full">중2~중3 심화</span>
+            </div>
+            <div className="bg-white border border-slate-200 p-8 rounded-2xl hover:border-blue-400 transition cursor-default">
+              <h3 className="text-xl font-bold text-indigo-700 mb-3">논리적 기하 증명</h3>
+              <p className="text-slate-600 leading-relaxed mb-4">
+                '왜 그렇게 되는가?'에 대한 답을 찾아가는 과정입니다. 
+                엄밀한 증명을 통해 논리적 사고력을 극대화합니다.
+              </p>
+              <span className="text-xs font-semibold bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full">도형의 성질</span>
+            </div>
+             <div className="bg-white border border-slate-200 p-8 rounded-2xl hover:border-blue-400 transition cursor-default">
+              <h3 className="text-xl font-bold text-teal-700 mb-3">확률과 통계적 사고</h3>
+              <p className="text-slate-600 leading-relaxed mb-4">
+                데이터를 분석하고 미래를 예측하는 힘을 기릅니다. 
+                실생활 데이터를 활용한 프로젝트 수업을 진행합니다.
+              </p>
+              <span className="text-xs font-semibold bg-teal-100 text-teal-700 px-3 py-1 rounded-full">데이터 분석</span>
+            </div>
+             <div className="bg-white border border-slate-200 p-8 rounded-2xl hover:border-blue-400 transition cursor-default">
+              <h3 className="text-xl font-bold text-rose-700 mb-3">문제 해결 전략</h3>
+              <p className="text-slate-600 leading-relaxed mb-4">
+                낯선 문제를 만났을 때 당황하지 않고 접근하는 
+                다양한 휴리스틱(발견적 기법)을 훈련합니다.
+              </p>
+              <span className="text-xs font-semibold bg-rose-100 text-rose-700 px-3 py-1 rounded-full">서술형 대비</span>
+            </div>
+          </div>
         </section>
       );
 
       const Contact = () => (
-        <section className="max-w-4xl mx-auto py-20 px-6 text-center">
-          <h2 className="text-3xl font-bold text-blue-700 mb-6">Contact</h2>
-          <p className="mb-6 text-gray-700">
-            강의·연수·컨설팅 문의는 이메일로 연락 주세요.
-          </p>
-          <a
-            href="mailto:l86091735@gmail.com"
-            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-xl shadow hover:bg-blue-700 transition"
-          >
-            l86091735@gmail.com
-          </a>
+        <section className="bg-blue-600 py-24 px-6 text-center text-white">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl font-bold mb-6">질문이 있나요?</h2>
+            <p className="mb-8 text-blue-100 text-lg">
+              수업 내용에 대한 질문이나 수행평가 관련 문의는 언제든 환영합니다.<br/>
+              확인하는 대로 답변 드리겠습니다.
+            </p>
+            <a
+              href="mailto:l86091735@gmail.com"
+              className="inline-flex items-center bg-white text-blue-700 px-8 py-4 rounded-full font-bold shadow-lg hover:bg-blue-50 hover:scale-105 transition transform"
+            >
+              <Icon type="mail" className="w-5 h-5 mr-2" />
+              l86091735@gmail.com
+            </a>
+          </div>
         </section>
       );
 
       const Footer = () => (
-        <footer className="py-8 text-center text-gray-500 text-sm">
-          © 2025 개인 홈페이지 — 함께 성장하는 수학 공간
+        <footer className="bg-slate-900 py-10 text-center">
+          <p className="text-slate-400 text-sm mb-2">
+            청산중학교 수학과 가우스 선생님
+          </p>
+          <p className="text-slate-600 text-xs">
+            © 2025 Math Education Personal Page. All rights reserved.
+          </p>
         </footer>
       );
 
